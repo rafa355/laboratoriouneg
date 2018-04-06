@@ -2,8 +2,6 @@
 
 Este es el codigo base para el servicio de gestion de laboratorios de computadoras, de la Universidad Nacional Experimental de Guayana,se hace publico de manera que otras personas puedan adaptarlo a sus necesidades segun el entorno donde se desenvuelven.
 
-
-
 WEB DEMO :
 
 Si desea probar el Api de manera grafica se posee una demo con una interfaz amigable.
@@ -30,5 +28,9 @@ Se proporciona un video de referencia haciendo uso del servicio a traves de la h
 el mismo se subio a youtube para facilitar su reproduccion y acceso al mismo
 
 https://youtu.be/YwR1gt5nrHA
+
+CONTRATO DE SERVICIO:
+
+Se encuenta definido en el archivo "contrato.json" dentro de la raiz del proyecto,se utiliza el esquema json para proporcionar el contrato de servicio.
 
 

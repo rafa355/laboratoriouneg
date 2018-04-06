@@ -1,0 +1,142 @@
+{
+    "Laboratorio": "1.0",
+    "info": {
+        "description": "Es un servicio de gestion de laboraboratorios, el cual permite registrar usuarios que formen parte de la universidad UNEG y permitirle el uso a computadoras",
+        "version": "1.0.0",
+        "title": "Laboratorio",
+        "contact": {
+            "email": "jrojas609@e.uneg.edu.ve"
+        }
+    },
+    "host": "http://laboratoriouneg.herokuapp.com",
+    "schemes": [
+        "http"
+    ],
+
+    {
+        "name": "numero",
+        "description": "numero de la computadora registrada",
+        "type": "integer"
+    },
+    {
+        "name": "status",
+        "description": "Estado de la computadora registrada",
+        "type": "integer"
+    },
+    {
+        "name": "created_at",
+        "description": "Fecha de registro de la computadora en sistema",
+        "type": "date"
+
+    }
+    "paths": {
+        "api/consulta/computadoras": {
+            "get": {
+                "tags": [
+                    "computadora"
+                ],
+                "summary": "Consulta computadoras registradas",
+                "description": "",
+                "operationId": "consulta_computadoras",
+                "produces": [
+                    "application/json",
+                ],
+                "parameters": [{
+                    "numero": "integer",
+                    "status": "integer",
+                    "create_at": "date",
+
+                    "schema": {
+                        "json"
+                    }
+                }],
+                "responses": {
+                    "id": "",
+                    "numero": "",
+                    "status": "",
+                    "created_at": ""
+                },
+            }]
+    },
+    "/api/registro/estudiante": {
+        "post": {
+            "tags": [
+                "estudiantes"
+            ],
+            "summary": "Crea un nuevo usuario estudiante en el sistema",
+            "description": "",
+            "operationId": "registrar_estudiante",
+            "consumes": [
+                "application/json",
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "parameters": [{
+                "nombre": "string",
+                "cedula": "integer",
+
+                "schema": {
+                    "json"
+                }
+            }],
+            "responses": {
+                "'status':'EXITO','message':'Estudiante registrado en laboratorio!'": {
+                    "description": "Se registro con exito el estudiante"
+                },
+                "'error':'ERROR','message':'Esta persona no se encuentra en el registro de la universidad!'": {
+                    "description": "No existe el estudiante dentro del sistema de la universidad"
+                }
+            },
+        }
+    },
+    "/api/iniciar_sesion/computadora": {
+        "post": {
+            "tags": [
+                "iniciar sesion"
+            ],
+            "summary": "Ocupar una computadora por un estudiante previamente registrado",
+            "description": "",
+            "operationId": "iniciar_sesion",
+            "produces": [
+                "application/json"
+            ],
+            "parameters": [{
+                "computadora": "integer",
+                "estudiante": "integer",
+            }],
+            "responses": {
+                "'status':'EXITO','message':'Computadora ocupada con exito'": {
+                    "description": "Computadora asignada a un estudiante con exito ",
+                },
+
+                "schema": {
+                    "json"
+                }
+            },
+        },
+    }
+},
+"/api/cerrar_sesion/computadora": {
+    "post": {
+        "tags": [
+            "cerrar sesion"
+        ],
+        "summary": "Elimina la relacion entre usuario y la computadora dejandola libre",
+        "description": "",
+        "operationId": "cerrar_sesion",
+        "produces": [
+            "application/json"
+        ],
+        "parameters": [{
+            "computadora": "integer",
+        }],
+        "responses": {
+            "'status':'EXITO','message':'Computadora desocupada con exito'": {
+                "description": "successful operation",
+                "schema": {
+                    "json"
+                }
+            }
+        },
+    }

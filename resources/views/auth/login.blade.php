@@ -38,13 +38,6 @@
 	</form>
 </div><!-- #login-form -->
 
-<div class="simple-page-footer">
-	<p>
-		<a href="signup.html">Agregar Cuenta</a>
-	</p>
-</div><!-- .simple-page-footer -->
-
-
 	</div><!-- .simple-page-wrap -->
 
 @endsection
