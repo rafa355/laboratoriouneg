@@ -6,7 +6,7 @@
 Route::post('login','Rest\LoginController@login');
 Route::post('register','Rest\RegisterController@register');
 
-
+Route::get('contrato','laboratorio\MicroServicioController@contrato');
 Route::get('consulta/general','laboratorio\MicroServicioController@consultar_general');
 
 
@@ -15,6 +15,6 @@ Route::get('consulta/computadoras','laboratorio\MicroServicioController@consulta
 
 Route::post('registro/estudiante','laboratorio\MicroServicioController@registrar_estudiante');
 Route::post('registro/computadora','laboratorio\MicroServicioController@registrar_computadora');
-Route::post('ocupar/computadora','laboratorio\MicroServicioController@ocupar_computadora');
-Route::post('desocupar/computadora','laboratorio\MicroServicioController@desocupar_computadora');
+Route::post('iniciar_sesion/computadora','laboratorio\MicroServicioController@ocupar_computadora');
+Route::post('cerrar_sesion/computadora','laboratorio\MicroServicioController@desocupar_computadora');
 

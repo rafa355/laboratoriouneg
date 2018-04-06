@@ -7,14 +7,29 @@ use App\Http\Controllers\Controller;
 use App\Estudiantes;
 use App\Computadoras;
 use App\ComputadoraEnUso;
+use GuzzleHttp\Client;
 
 class MicroServicioController extends Controller
 {
-    public function consultar_general(){
-        $response = http_get("http://localhost:8000/laboratorio/consulta/estudiantes");
 
-        echo $response;
+    public function contrato(){
+        
+        $consulta = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => 'http://192.168.101.92:5000',
+            // You can set any number of default request options.
+            'timeout'  => 10.0,
+        ]);
+    
+        $response= $consulta->request('GET','api/consulta/computadoras');
+    
+        $estudiante = json_decode($response->getBody()->getContents());
+        
+
+    	return response()->json(Estudiantes::Consulta());
     }
+
+
 
     public function consultar_estudiantes(){
     	return response()->json(Estudiantes::Consulta());
@@ -41,9 +56,37 @@ class MicroServicioController extends Controller
                 ];
             }
 
-       $estudiante = Estudiantes::create($request->all());
+            $consulta = new Client([
+                // Base URI is used with relative requests
+                'base_uri' => 'http://127.0.0.1:8000',
+                // You can set any number of default request options.
+                'timeout'  => 10.0,
+            ]);
+        
+            $response= $consulta->request('GET','/estudiantes/consulta');
+        
+            $estudiante = json_decode($response->getBody()->getContents());
+            
+            foreach($estudiante as $estudiante){
+                if($estudiante->cedula == $request->cedula){
+                $usuario = Estudiantes::create($request->all());
+                }
+            }
 
-       return response()->json($estudiante);
+            if(empty($usuario)){
+            $returnData = array(
+                'status' => 'ERROR',
+                'message' => 'Esta persona no se encuentra en el registro de la universidad!'
+            );
+            return response()->json(['error'=>$returnData]);
+            }
+
+            $returnData = array(
+                'status' => 'EXITO',
+                'message' => 'Estudiante registrado en laboratorio!'
+            );
+
+            return response()->json([$returnData]);
     }
 
     public function registrar_computadora(Request $request)
@@ -91,8 +134,13 @@ class MicroServicioController extends Controller
             
        $computadoraenuso = ComputadoraEnUso::create($request->all());
 
-       return response()->json($computadoraenuso);
-    }
+       $returnData = array(
+        'status' => 'EXITO',
+        'message' => 'Computadora Ocupada con exito!'
+    );
+
+    return response()->json([$returnData]);
+   }
 
 
     public function desocupar_computadora(Request $request)
@@ -117,6 +165,12 @@ class MicroServicioController extends Controller
        $computadoraenuso = ComputadoraEnUso::where('computadora', $request->computadora)->first();;
        $computadoraenuso->delete();
 
-       return response()->json($computadora);
-    }
+       $returnData = array(
+        'status' => 'EXITO',
+        'message' => 'Computadora Desocupada con exito!'
+    );   
+    return response()->json([$returnData]);
+
+
+}
 }
